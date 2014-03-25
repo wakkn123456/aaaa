@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+//將檔案以byte的方式讀入再轉成16進至
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            byte[] _file = File.ReadAllBytes(@"C:\Mac.pdf");
+            
+            string hex = BitConverter.ToString(_file);
+            hex = hex.Replace("-", "");
+
+            StreamWriter sw = new StreamWriter(@"c:\123.txt",true);
+            sw.Write(hex);
+            sw.Close();
+
+   //這是測試頁面
+
+        }
+
+        void bt_Click(object sender, EventArgs e)
+        {
+            Button bt =(Button) sender;
+            MessageBox.Show(bt.Tag.ToString());
+        }
+    }
+}
